@@ -54,7 +54,9 @@
 ```php
 $page_meta = app(\Sashagm\Seo\Services\MetaService::class)->getPageMeta('key');
 ```
+
 3.2. Если необходимо кастомное описание то достаточно передать вторым агрументом нашу строку.
+
 ```php
 $page_meta = app(\Sashagm\Seo\Services\MetaService::class)->getPageMeta('key', 'custom description');
 ```
