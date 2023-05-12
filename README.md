@@ -61,9 +61,15 @@ $page_meta = app(\Sashagm\Seo\Services\MetaService::class)->getPageMeta('key');
 $page_meta = app(\Sashagm\Seo\Services\MetaService::class)->getPageMeta('key', 'custom description');
 ```
 
+#### Тестирование
+
+Для проверки работоспособности можно выполнить специальную команду:
+
+- ./vendor/bin/phpunit --configuration phpunit.xml
 
 #### Лицензия
 
 SEO Builder - это программное обеспечение с открытым исходным кодом, лицензированное по [MIT license](LICENSE.md ).
+
 
 

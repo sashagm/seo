@@ -24,5 +24,8 @@
                 "Sashagm\\Seo\\Providers\\ThemesServiceProvider"
             ]
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.1"
     }
 }
