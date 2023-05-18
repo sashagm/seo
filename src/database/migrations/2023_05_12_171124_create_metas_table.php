@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('key')->unique();
             $table->text('keywords')->nullable();
             $table->text('description')->nullable();
+            $table->text('robots')->nullable();
+            $table->text('og_title')->nullable();
+            $table->text('og_description')->nullable();
             $table->timestamps();
         });
     }

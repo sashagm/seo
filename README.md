@@ -43,10 +43,15 @@
 
     <meta name="keywords" content="{{ $page_meta['keywords'] }}">
     <meta name="description" content="{{ $page_meta['description'] }}">
+    <p>{{ $page_meta['robots'] }}</p>
+    <p>{{ $page_meta['og_title'] }}</p>
+    <p>{{ $page_meta['og_description'] }}</p>
+
+
 @endsection
 ```
 
-Здесь мы выводим значения ключей `keywords` и `description` из модели, а если передано дополнительное описание, то выводим его вместо описания из модели. Если дополнительное описание не передано, то выводим только описание из модели.
+Здесь мы выводим значения ключей `keywords`, `description`, `robots`, `og_title`, `og_description` из модели, а если передано дополнительное описание, то выводим его вместо описания из модели. Если дополнительное описание не передано, то выводим только описание из модели.
 
 3. Теперь мы можем определять метатеги для каждой страницы отдельно и передавать их в наш layouts через директиву @yield('meta'). Это позволит нам более гибко управлять метатегами и улучшить SEO-оптимизацию нашего сайта.
 4. Давайте разберемся с методом `getPageMeta('key')` в него мы передаем ключ нашей категории. Поиск будет из модели.
@@ -60,6 +65,12 @@ $page_meta = app(\Sashagm\Seo\Services\MetaService::class)->getPageMeta('key');
 ```php
 $page_meta = app(\Sashagm\Seo\Services\MetaService::class)->getPageMeta('key', 'custom description');
 ```
+5. Если необходимо кастомное og описание то достаточно передать третьим агрументом нашу строку.
+
+```php
+$page_meta = app(\Sashagm\Seo\Services\MetaService::class)->getPageMeta('key', 'custom description', 'custom og desc');
+```
+
 
 #### Тестирование
 

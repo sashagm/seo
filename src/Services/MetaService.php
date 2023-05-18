@@ -49,7 +49,7 @@ class MetaService
         return $meta->description;
     }
     
-    public function getPageMeta($page, $additional_description = null)
+    public function getPageMeta($page, $additional_description = null, $ogDescription = null)
     {
         $meta = Meta::where('key', $page)->first();
     
@@ -57,12 +57,20 @@ class MetaService
             return [
                 'keywords' => $meta ? $meta->keywords : null,
                 'description' => $additional_description,
+                'robots' => $meta->robots,
+                'og_title' => $meta->og_title,
+                'og_description' => $ogDescription ?? $meta->og_description,
+
             ];
         }
+        
     
         return [
             'keywords' => $meta ? $meta->keywords : null,
             'description' => $meta ? $meta->description : null,
+            'robots' => $meta->robots,
+            'og_title' => $meta->og_title,
+            'og_description' => $ogDescription ?? $meta->og_description,
         ];
     }
     
