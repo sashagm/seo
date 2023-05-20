@@ -36,39 +36,32 @@
 2. Чтобы добавить мета теги на конкретную страницу, вам необходимо указать соответствующие значения в секциях @section('meta') в файле `resources/views/pages/example.blade.php`:
 
 ```php
-@section('meta')
-    @php
-        $page_meta = app(\Sashagm\Seo\Services\MetaService::class)->getPageMeta('key');
-    @endphp
-
-    <meta name="keywords" content="{{ $page_meta['keywords'] }}">
-    <meta name="description" content="{{ $page_meta['description'] }}">
-    <p>{{ $page_meta['robots'] }}</p>
-    <p>{{ $page_meta['og_title'] }}</p>
-    <p>{{ $page_meta['og_description'] }}</p>
-
-
-@endsection
+@section('meta') @meta('key') @endsection
 ```
 
 Здесь мы выводим значения ключей `keywords`, `description`, `robots`, `og_title`, `og_description` из модели, а если передано дополнительное описание, то выводим его вместо описания из модели. Если дополнительное описание не передано, то выводим только описание из модели.
 
 3. Теперь мы можем определять метатеги для каждой страницы отдельно и передавать их в наш layouts через директиву @yield('meta'). Это позволит нам более гибко управлять метатегами и улучшить SEO-оптимизацию нашего сайта.
-4. Давайте разберемся с методом `getPageMeta('key')` в него мы передаем ключ нашей категории. Поиск будет из модели.
+4. Давайте разберемся с методом `getPageMeta('key')` в него мы передаем ключ нашей категории. Поиск будет из модели по первому аргументу.
 
 ```php
-$page_meta = app(\Sashagm\Seo\Services\MetaService::class)->getPageMeta('key');
+@meta('key')
 ```
 
-5. Если необходимо кастомное описание то достаточно передать вторым агрументом нашу строку.
+5. Если необходимо кастомное описание то достаточно передать вторым агрументом нашу строку она отобразится вместо нашего key->description.
 
 ```php
-$page_meta = app(\Sashagm\Seo\Services\MetaService::class)->getPageMeta('key', 'custom description');
+@meta('key','custom description')
 ```
-5. Если необходимо кастомное og описание то достаточно передать третьим агрументом нашу строку.
+5. Если необходимо кастомное og описание то достаточно передать вторым аргументом пустую строку и третьим агрументом нашу строку она отобразится вместо нашего key->og_description.
 
 ```php
-$page_meta = app(\Sashagm\Seo\Services\MetaService::class)->getPageMeta('key', 'custom description', 'custom og desc');
+@meta('key','','custom og description')
+```
+6. Если необходимо кастомное описание и og описание то достаточно передать вторым аргументом строку для описания и третьим агрументом строку для og описание они отобразятся вместо наших key->og_description и key->og_description.
+
+```php
+@meta('key','custom description','custom og description')
 ```
 
 
