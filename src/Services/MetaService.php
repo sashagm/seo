@@ -24,71 +24,82 @@ class MetaService
     public function getKeywords($key)
     {
         $meta = Meta::where('key', $key)->first();
-    
+
         return $meta ? $meta->keywords : null;
     }
-    
+
     public function setKeywords($key, $keywords)
     {
         $meta = Meta::updateOrCreate(['key' => $key], ['keywords' => $keywords]);
-    
+
         return $meta->keywords;
     }
-    
+
     public function getDescription($key)
     {
         $meta = Meta::where('key', $key)->first();
-    
+
         return $meta ? $meta->description : null;
     }
-    
+
     public function setDescription($key, $description)
     {
         $meta = Meta::updateOrCreate(['key' => $key], ['description' => $description]);
-    
+
         return $meta->description;
     }
-    
+
     public function getPageMeta($page, $additional_description = null, $ogDescription = null)
     {
         $meta = Meta::where('key', $page)->first();
-    
-        if ($additional_description) {
-            return [
-                'keywords' => $meta ? $meta->keywords : null,
-                'description' => $additional_description,
+
+        if (!$meta) {
+            $meta = [
+                'keywords' => config('seo.default.keywords'),
+                'description' => config('seo.default.description'),
+                'robots' => config('seo.default.robots'),
+                'og_title' => config('seo.default.og_title'),
+                'og_description' => config('seo.default.og_description'),
+            ];
+        } else {
+            $meta = [
+                'keywords' => $meta->keywords,
+                'description' => $meta->description,
                 'robots' => $meta->robots,
                 'og_title' => $meta->og_title,
-                'og_description' => $ogDescription ?? $meta->og_description,
-
+                'og_description' => $meta->og_description,
             ];
         }
-        
-    
-        return [
-            'keywords' => $meta ? $meta->keywords : null,
-            'description' => $meta ? $meta->description : null,
-            'robots' => $meta->robots,
-            'og_title' => $meta->og_title,
-            'og_description' => $ogDescription ?? $meta->og_description,
-        ];
+
+        if ($additional_description) {
+            $meta['description'] = $additional_description;
+        }
+
+        if ($ogDescription) {
+            $meta['og_description'] = $ogDescription;
+        }
+
+        return $meta;
     }
-    
+
     public function setPageMeta($page, $data)
     {
         $meta = Meta::updateOrCreate(['key' => $page], [
             'keywords' => isset($data['keywords']) ? $data['keywords'] : null,
             'description' => isset($data['description']) ? $data['description'] : null,
             'additional_description' => isset($data['additional_description']) ? $data['additional_description'] : null,
+            'robots' => isset($data['robots']) ? $data['robots'] : null,
+            'og_title' => isset($data['og_title']) ? $data['og_title'] : null,
+            'og_description' => isset($data['og_description']) ? $data['og_description'] : null,
         ]);
-    
+
         return [
             'keywords' => $meta->keywords,
             'description' => $meta->description,
             'additional_description' => $meta->additional_description,
+            'robots' => $meta->robots,
+            'og_title' => $meta->og_title,
+            'og_description' => $meta->og_description,
         ];
     }
-    
-
-
 }

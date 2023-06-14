@@ -49,6 +49,11 @@ APP_NAME="Laravel"
 APP_OG_TYPE="website"
 APP_OG_LOCALE="ru_RU"
 APP_OG_IMAGE="/storage/images.jpg"
+APP_KEYWORDS=""
+APP_DESC=""
+APP_ROBOTS=""
+APP_OG_TITLE=""
+APP_OG_DESC=""
 ```
 
 1.1. Чтобы добавить мета теги на страницу, вам необходимо вставить соответствующий код в секцию <head> вашего HTML-кода в файле `layouts/app.blade.php` укажите директиву `@yield('meta')`:

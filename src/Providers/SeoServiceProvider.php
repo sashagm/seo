@@ -26,13 +26,14 @@ class SeoServiceProvider extends ServiceProvider
             __DIR__.'/../config/seo.php', 'seo'
         );
 
+
         Blade::directive('meta', function ($arguments) {
             $args = explode(',', $arguments);
             $key = trim($args[0], "'");
             $description = isset($args[1]) ? trim($args[1], "'") : null;
             $og_description = isset($args[2]) ? trim($args[2], "'") : null;
             $page_meta = app(\Sashagm\Seo\Services\MetaService::class)->getPageMeta($key, $description, $og_description);
-            
+
             // Get meta tags from .env file
             $og_type = config('seo.og_type');
             $og_locale = config('seo.og_locale');
