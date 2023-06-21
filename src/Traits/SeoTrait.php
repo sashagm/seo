@@ -18,13 +18,18 @@ trait SeoTrait
             $key = trim($args[0], "'");
             $description = isset($args[1]) ? trim($args[1], "'") : null;
             $og_description = isset($args[2]) ? trim($args[2], "'") : null;
+
+            if (!$key) {
+                throw new Exception("Seo configuration error: key not set!");
+            }
+
             $page_meta = app(\Sashagm\Seo\Services\MetaService::class)->getPageMeta($key, $description, $og_description);
 
             // Get meta tags from .env file
-            $og_type = config('seo.og_type');
-            $og_locale = config('seo.og_locale');
-            $og_site_name = config('seo.og_site_name');
-            $og_image = config('seo.og_image');
+            $og_type = config('seo.og_type') ?? throw new Exception('og_type value is missing in seo.php');
+            $og_locale = config('seo.og_locale') ?? throw new Exception('og_locale value is missing in seo.php');
+            $og_site_name = config('seo.og_site_name') ?? throw new Exception('og_site_name value is missing in seo.php');
+            $og_image = config('seo.og_image') ?? throw new Exception('og_image value is missing in seo.php');
 
             // Get current url 
             $canonical_url = url()->current();
