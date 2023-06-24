@@ -35,5 +35,17 @@ class Meta extends Model
         return $value ?? $this->description;
     }
 
+    public function getDescriptionAttribute($value)
+    {
+        return $value ?? $this->description;
+    }
+
+    public function getKeywordsAttribute($value)
+    {
+        return $value ?? $this->keywords;
+    }
+
+
+
 
 }

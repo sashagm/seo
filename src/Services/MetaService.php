@@ -49,6 +49,48 @@ class MetaService
         return $meta->description;
     }
 
+    public function getRobots($key)
+    {
+        $meta = Meta::where('key', $key)->first();
+
+        return $meta ? $meta->robots : null;
+    }
+
+    public function setRobots($key, $robots)
+    {
+        $meta = Meta::updateOrCreate(['key' => $key], ['robots' => $robots]);
+
+        return $meta->robots;
+    }
+
+    public function getOgTitle($key)
+    {
+        $meta = Meta::where('key', $key)->first();
+
+        return $meta ? $meta->og_title : null;
+    }
+
+    public function setOgTitle($key, $og_title)
+    {
+        $meta = Meta::updateOrCreate(['key' => $key], ['og_title' => $og_title]);
+
+        return $meta->og_title;
+    }
+
+    public function getOgDescription($key)
+    {
+        $meta = Meta::where('key', $key)->first();
+
+        return $meta ? $meta->og_description : null;
+    }
+
+    public function setOgDescription($key, $og_description)
+    {
+        $meta = Meta::updateOrCreate(['key' => $key], ['og_description' => $og_description]);
+
+        return $meta->og_description;
+    }
+
     public function getPageMeta($page, $additional_description = null, $ogDescription = null)
     {
         $meta = Meta::where('key', $page)->first();

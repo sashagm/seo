@@ -4,8 +4,9 @@ namespace  Sashagm\Seo\Traits;
 
 
 use Exception;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
+use Sashagm\Seo\Services\MetaService;
 
 trait SeoTrait
 {
@@ -23,7 +24,7 @@ trait SeoTrait
                 throw new Exception("Seo configuration error: key not set!");
             }
 
-            $page_meta = app(\Sashagm\Seo\Services\MetaService::class)->getPageMeta($key, $description, $og_description);
+            $page_meta = app(MetaService::class)->getPageMeta($key, $description, $og_description);
 
             // Get meta tags from .env file
             $og_type = config('seo.og_type') ?? throw new Exception('og_type value is missing in seo.php');
