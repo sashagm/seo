@@ -2,97 +2,99 @@
 
 namespace Sashagm\Seo\Services;
 
+use Exception;
 use Sashagm\Seo\Models\Meta;
 
 class MetaService
 {
-    public function get($key)
+    public static function get($key = null)
     {
+        $metas = self::checkMetaExists($key);
         $meta = Meta::where('key', $key)->first();
-
         return $meta ? $meta->value : null;
     }
 
-    public function set($key, $value)
+    public function set($key = null, $value)
     {
+        $metas = $this->checkMetaExists($key);
         $meta = Meta::updateOrCreate(['key' => $key], ['value' => $value]);
-
         return $meta->value;
     }
 
 
-    public function getKeywords($key)
+    public function getKeywords($key = null)
     {
+        $metas = $this->checkMetaExists($key);
         $meta = Meta::where('key', $key)->first();
-
         return $meta ? $meta->keywords : null;
     }
 
-    public function setKeywords($key, $keywords)
+    public function setKeywords($key = null, $keywords)
     {
+        $metas = $this->checkMetaExists($key);
         $meta = Meta::updateOrCreate(['key' => $key], ['keywords' => $keywords]);
-
         return $meta->keywords;
     }
 
-    public function getDescription($key)
+    public function getDescription($key = null)
     {
+        $metas = $this->checkMetaExists($key);
         $meta = Meta::where('key', $key)->first();
-
         return $meta ? $meta->description : null;
     }
 
-    public function setDescription($key, $description)
+    public function setDescription($key = null, $description)
     {
+        $metas = $this->checkMetaExists($key);
         $meta = Meta::updateOrCreate(['key' => $key], ['description' => $description]);
-
         return $meta->description;
     }
 
-    public function getRobots($key)
+    public function getRobots($key = null)
     {
+        $metas = $this->checkMetaExists($key);
         $meta = Meta::where('key', $key)->first();
-
         return $meta ? $meta->robots : null;
     }
 
-    public function setRobots($key, $robots)
+    public function setRobots($key = null, $robots)
     {
+        $metas = $this->checkMetaExists($key);
         $meta = Meta::updateOrCreate(['key' => $key], ['robots' => $robots]);
-
         return $meta->robots;
     }
 
-    public function getOgTitle($key)
+    public function getOgTitle($key = null)
     {
+        $metas = $this->checkMetaExists($key);
         $meta = Meta::where('key', $key)->first();
-
         return $meta ? $meta->og_title : null;
     }
 
-    public function setOgTitle($key, $og_title)
+    public function setOgTitle($key = null, $og_title)
     {
+        $metas = $this->checkMetaExists($key);
         $meta = Meta::updateOrCreate(['key' => $key], ['og_title' => $og_title]);
-
         return $meta->og_title;
     }
 
-    public function getOgDescription($key)
+    public function getOgDescription($key = null)
     {
+        $metas = $this->checkMetaExists($key);
         $meta = Meta::where('key', $key)->first();
-
         return $meta ? $meta->og_description : null;
     }
 
-    public function setOgDescription($key, $og_description)
+    public function setOgDescription($key = null, $og_description)
     {
+        $metas = $this->checkMetaExists($key);
         $meta = Meta::updateOrCreate(['key' => $key], ['og_description' => $og_description]);
-
         return $meta->og_description;
     }
 
-    public function getPageMeta($page, $additional_description = null, $ogDescription = null)
+    public function getPageMeta($page = null, $additional_description = null, $ogDescription = null)
     {
+        $metas = $this->checkMetaExists($page);
         $meta = Meta::where('key', $page)->first();
 
         if (!$meta) {
@@ -124,8 +126,9 @@ class MetaService
         return $meta;
     }
 
-    public function setPageMeta($page, $data)
+    public function setPageMeta($page = null, $data)
     {
+        $metas = $this->checkMetaExists($page);
         $meta = Meta::updateOrCreate(['key' => $page], [
             'keywords' => isset($data['keywords']) ? $data['keywords'] : null,
             'description' => isset($data['description']) ? $data['description'] : null,
@@ -144,4 +147,18 @@ class MetaService
             'og_description' => $meta->og_description,
         ];
     }
+
+
+    public function checkMetaExists($meta)
+    {
+
+        if (!$meta || $meta == null) {
+            
+            throw new Exception('Запись не найдена');
+        }
+    
+        return $meta;
+    }
+
+
 }
