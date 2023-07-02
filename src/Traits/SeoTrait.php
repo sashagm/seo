@@ -12,8 +12,6 @@ trait SeoTrait
 {
     public function bootSeo()
     {
-
-
         Blade::directive('meta', function ($arguments) {
             $args = explode(',', $arguments);
             $key = trim($args[0], "'");
@@ -26,7 +24,7 @@ trait SeoTrait
 
             $page_meta = app(MetaService::class)->getPageMeta($key, $description, $og_description);
 
-            // Get meta tags from .env file
+            // Get meta tags from config file
             $og_type = config('seo.og_type') ?? throw new Exception('og_type value is missing in seo.php');
             $og_locale = config('seo.og_locale') ?? throw new Exception('og_locale value is missing in seo.php');
             $og_site_name = config('seo.og_site_name') ?? throw new Exception('og_site_name value is missing in seo.php');
@@ -35,8 +33,22 @@ trait SeoTrait
             // Get current url 
             $canonical_url = url()->current();
 
-            // Add meta tags to output
-            $output = '
+            // Generate meta tags
+            $output = $this->generateMetaTags($page_meta, $og_type, $og_locale, $og_site_name, $og_image, $canonical_url);
+
+            return $output;
+        });
+    }
+
+    protected function generateMetaTags($page_meta, $og_type, $og_locale, $og_site_name, $og_image, $canonical_url)
+    {
+        // Check if keyword is set
+        if (!$page_meta['keywords']) {
+            throw new Exception("Seo configuration error: keywords not set!");
+        }
+
+        // Generate meta tags
+        $output = '
     <meta name="keywords" content="' . $page_meta['keywords'] . '" >
     <meta name="description" content="' . $page_meta['description'] . '">
     <meta name="robots" content="' . $page_meta['robots'] . '"> 
@@ -51,8 +63,7 @@ trait SeoTrait
     <meta property="og:description" content="' . $page_meta['og_description'] . '">
     <link rel="canonical" href="' . $canonical_url . '">
         ';
-            return $output;
-        });
+
+        return $output;
     }
 }
-
