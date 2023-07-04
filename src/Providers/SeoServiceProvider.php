@@ -3,7 +3,6 @@
 namespace Sashagm\Seo\Providers;
 
 use Sashagm\Seo\Traits\SeoTrait;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Sashagm\Seo\Console\Commands\CreateCommand;
 

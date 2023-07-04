@@ -18,7 +18,7 @@ class Meta extends Model
         'og_title',
         'og_description',
     ];
-
+     
 
     public function getRobotsAttribute($value)
     {

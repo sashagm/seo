@@ -2,10 +2,8 @@
 
 namespace  Sashagm\Seo\Traits;
 
-
 use Exception;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Route;
 use Sashagm\Seo\Services\MetaService;
 
 trait SeoTrait
@@ -66,4 +64,7 @@ trait SeoTrait
 
         return $output;
     }
+
+
+    
 }

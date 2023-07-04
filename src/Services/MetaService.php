@@ -4,7 +4,6 @@ namespace Sashagm\Seo\Services;
 
 use Exception;
 use Sashagm\Seo\Models\Meta;
-
 class MetaService
 {
     public static function get($key = null)
@@ -20,7 +19,6 @@ class MetaService
         $meta = Meta::updateOrCreate(['key' => $key], ['value' => $value]);
         return $meta->value;
     }
-
 
     public function getKeywords($key = null)
     {
@@ -147,7 +145,6 @@ class MetaService
             'og_description' => $meta->og_description,
         ];
     }
-
 
     public function checkMetaExists($meta)
     {

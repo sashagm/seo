@@ -7,12 +7,13 @@ return [
     'og_image'              => env('APP_OG_IMAGE'),
 
     'default'               => [
-        'keywords'      => env('APP_KEYWORDS'),
-        'description'   => env('APP_DESC'),
-        'robots'        => env('APP_ROBOTS'),
-        'og_title'       => env('APP_OG_TITLE'),
-        'og_description' => env('APP_OG_DESC'),
+        'keywords'          => env('APP_KEYWORDS'),
+        'description'       => env('APP_DESC'),
+        'robots'            => env('APP_ROBOTS'),
+        'og_title'          => env('APP_OG_TITLE'),
+        'og_description'    => env('APP_OG_DESC'),
     ],
+
 
 
 ];
