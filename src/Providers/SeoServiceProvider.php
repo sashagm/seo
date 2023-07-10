@@ -24,20 +24,35 @@ class SeoServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-       
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+
+        $this->registerMigrate();
+
+        $this->publishFiles();
+
+        $this->registerCommands();
+
+        $this->bootSeo();
+    }
+
+    protected function registerMigrate()
+    {
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+    }
+
+    protected function publishFiles()
+    {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/seo.php', 'seo'
+            __DIR__ . '/../config/seo.php',
+            'seo'
         );
+    }
+
+    protected function registerCommands()
+    {
         if ($this->app->runningInConsole()) {
             $this->commands([
                 CreateCommand::class,
             ]);
         }
-
-        $this->bootSeo();
-
     }
-
-    
 }

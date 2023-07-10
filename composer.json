@@ -1,6 +1,6 @@
 {
     "name": "sashagm/seo",
-    "description": "SEO Builder Laravel +10.x",
+    "description": "Наш сервис предназначен для упрощения процесса создания и управления мета тегами на вашем сайте. Мета теги являются важной частью оптимизации сайта для поисковых систем и могут помочь улучшить позиции вашего сайта в результатах поиска.",
     "minimum-stability": "stable",
     "license": "MIT",
     "authors": [
@@ -15,7 +15,7 @@
         "laravel/framework": "^10.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^10.1"
+        "phpunit/phpunit": "^10.2"
     },
     "autoload": {
         "psr-4": {
