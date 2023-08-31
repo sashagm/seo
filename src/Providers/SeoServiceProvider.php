@@ -53,6 +53,10 @@ class SeoServiceProvider extends ServiceProvider
             $this->commands([
                 CreateCommand::class,
             ]);
+        } else {
+            $this->commands([
+                CreateCommand::class,
+            ]);
         }
     }
 }
