@@ -25,26 +25,6 @@ class Meta extends Model
         return $value ?? 'index,follow';
     }
 
-    public function getOgTitleAttribute($value)
-    {
-        return $value ?? $this->title;
-    }
-
-    public function getOgDescriptionAttribute($value)
-    {
-        return $value ?? $this->description;
-    }
-
-    public function getDescriptionAttribute($value)
-    {
-        return $value ?? $this->description;
-    }
-
-    public function getKeywordsAttribute($value)
-    {
-        return $value ?? $this->keywords;
-    }
-
 
 
 
