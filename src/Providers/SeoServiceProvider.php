@@ -24,10 +24,9 @@ class SeoServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->publishFiles();
 
         $this->registerMigrate();
-
-        $this->publishFiles();
 
         $this->registerCommands();
 
